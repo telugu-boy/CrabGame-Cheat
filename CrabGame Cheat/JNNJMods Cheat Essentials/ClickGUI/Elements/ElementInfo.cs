@@ -1,4 +1,5 @@
 ﻿using JNNJMods.Utils;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace JNNJMods.UI.Elements
@@ -9,34 +10,40 @@ namespace JNNJMods.UI.Elements
         /// <summary>
         /// Defines if this Element can be bound to a Key
         /// </summary>
+        [JsonIgnore]
         public bool KeyBindable;
 
         /// <summary>
         /// Current KeyBind of this Element
         /// </summary>
+        
         public KeyCode KeyBind;
 
         /// <summary>
         /// Current value
         /// </summary>
-        protected object value;
+        public object value { get; protected set; }
 
         /// <summary>
         /// <see cref="ElementManager"/> instance of this.
         /// </summary>
+        [JsonIgnore]
         public ElementManager manager;
 
         /// <summary>
         /// <see cref="GUIStyle"/> of the Element
+        [JsonIgnore]
         public GUIStyle style;
-
+        [JsonIgnore]
         public int WindowId { get; private set; }
 
         /// <summary>
         /// Executed when the Value Changes.
         /// </summary>
         public event ValueChangedCallback ValueChanged = delegate { };
+        [JsonIgnore]
         private int index = -1;
+        [JsonIgnore]
         private Rect rect;
 
         #endregion
@@ -72,7 +79,7 @@ namespace JNNJMods.UI.Elements
             WindowId = windowId;
             KeyBindable = keyBindable;
         }
-        
+
         /// <summary>
         /// Renders the Element
         /// </summary>
@@ -84,7 +91,7 @@ namespace JNNJMods.UI.Elements
 
         protected void RunStyleCheck(GUIStyle fallback)
         {
-            if(style == null)
+            if (style == null)
             {
                 style = fallback;
             }
@@ -103,7 +110,7 @@ namespace JNNJMods.UI.Elements
 
             rect = manager.NextControlRect(index);
 
-            if(KeyBindable)
+            if (KeyBindable)
             {
                 float offset = rect.width / 5f;
 
@@ -127,7 +134,7 @@ namespace JNNJMods.UI.Elements
             object oldValue = value;
             object newValue = RenderElement(rect, style);
 
-            if(oldValue != newValue)
+            if (oldValue != newValue)
             {
                 ValueChanged(oldValue, newValue);
             }

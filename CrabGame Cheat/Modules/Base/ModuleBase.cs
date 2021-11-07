@@ -1,5 +1,6 @@
 ﻿using JNNJMods.UI;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace JNNJMods.CrabGameCheat.Modules
 {
@@ -49,7 +50,6 @@ namespace JNNJMods.CrabGameCheat.Modules
         {
             Name = name;
             WindowId = windowId;
-            
             Init(gui);
         }
 

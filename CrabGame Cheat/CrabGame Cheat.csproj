@@ -14,13 +14,14 @@
     <Deterministic>true</Deterministic>
     <IsBepInEx>false</IsBepInEx>
     <IsMelonLoader>false</IsMelonLoader>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;BEPINEX;MELONLOADER</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;MELONLOADER;BEPINEX</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <IsMelonLoader>true</IsMelonLoader>
@@ -40,10 +41,12 @@
     <AssemblyName>CrabGame_Cheat_BepInEx</AssemblyName>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <IsBepInEx>true</IsBepInEx>
+    <DebugSymbols>true</DebugSymbols>
+    <WarningLevel>0</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MelonLoader|AnyCPU'">
     <OutputPath>bin\MelonLoader\</OutputPath>
@@ -55,6 +58,16 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <IsMelonLoader>true</IsMelonLoader>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BepInEx Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>F:\SteamLibrary\steamapps\common\Crab Game\BepInEx\plugins\CrabGame Cheat\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;BEPINEX</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Chat\ChatCommandAttribute.cs" />
@@ -112,6 +125,7 @@
     <Compile Include="Util\Config\CheatModuleAttribute.cs" />
     <Compile Include="Util\Config\Config.cs" />
     <Compile Include="Util\Config\ConfigPaths.cs" />
+    <Compile Include="Util\Config\Serializables.cs" />
     <Compile Include="Util\GameObjectExtensions.cs" />
     <Compile Include="Util\MetricsCommunication.cs" />
     <Compile Include="Util\RainbowColor.cs" />
@@ -986,4 +1000,8 @@
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>

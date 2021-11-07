@@ -62,7 +62,7 @@ namespace JNNJMods.CrabGameCheat
                 config = Config.FromFile(ConfigPaths.ConfigFile, gui);
             } catch(Exception) { }
 
-            if (config == null)
+            if(config == null)
             {
                 config = new Config(gui);
             }
@@ -126,6 +126,10 @@ namespace JNNJMods.CrabGameCheat
             //Hide and Show ClickGUI
             if (Input.GetKeyDown(config.ClickGuiKeyBind) && !gui.keyBindSelection.Shown)
             {
+                if (gui.Shown)
+                    config.WriteToFile(ConfigPaths.ConfigFile);
+                else
+                    Config.FromFile(ConfigPaths.ConfigFile, gui);
                 gui.Shown = !gui.Shown;
             }
         }

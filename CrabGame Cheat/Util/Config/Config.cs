@@ -1,5 +1,6 @@
 ﻿using JNNJMods.CrabGameCheat.Modules;
 using JNNJMods.UI;
+using JNNJMods.UI.Elements;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,9 @@ using UnityEngine;
 
 namespace JNNJMods.CrabGameCheat.Util
 {
+
     public class Config
     {
-
         public static Config Instance { get; private set; }
 
         public List<ModuleBase> Modules { get; private set; }
@@ -33,9 +34,7 @@ namespace JNNJMods.CrabGameCheat.Util
 
         private List<ModuleBase> GetModules(ClickGUI gui)
         {
-            List<ModuleBase> modules = new List<ModuleBase>(CheatModuleAttribute.InstantiateAll(gui));
-
-            return modules;
+            return new List<ModuleBase>(CheatModuleAttribute.InstantiateAll(gui));
         }
 
         public Config(ClickGUI gui)
@@ -47,8 +46,11 @@ namespace JNNJMods.CrabGameCheat.Util
         public void WriteToFile(string file)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(file));
-
-            File.WriteAllText(file, ToJson());
+            // fires succesfully
+            //File.AppendAllText(file, "poop\n");
+            string serialized = GetConfigJson();
+            //File.AppendAllText(file, serialized + '\n');
+            File.WriteAllText(file, serialized);
         }
 
         public static Config FromFile(string file, ClickGUI gui)
@@ -63,7 +65,8 @@ namespace JNNJMods.CrabGameCheat.Util
             try
             {
                 return FromJson(File.ReadAllText(file), gui);
-            } catch(JsonException)
+            }
+            catch (JsonException)
             {
                 File.Delete(file);
                 return CreateFile(file, gui);
@@ -80,25 +83,47 @@ namespace JNNJMods.CrabGameCheat.Util
             return config;
         }
 
-        public string ToJson()
+        public string GetConfigJson()
         {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
+            ConfigSerializable cfg = new ConfigSerializable();
+            foreach (ModuleBase module in Modules)
+            {
+                if (module is SingleElementModuleBase)
+                {
+                    SEMBSerializable ms = new SEMBSerializable((SingleElementModuleBase)module);
+                    cfg.SEMOptions.Add(ms);
+                }
+            }
+            return JsonConvert.SerializeObject(cfg, Formatting.Indented);
         }
 
         public static Config FromJson(string json, ClickGUI gui)
         {
             try
             {
-                Config instance = JsonConvert.DeserializeObject<Config>(json);
+                Config cfg = new Config(gui);
+                ConfigSerializable deserialized = JsonConvert.DeserializeObject<ConfigSerializable>(json);
+                File.AppendAllText(ConfigPaths.ConfigDirectory + "\\opts.txt", deserialized.SEMOptions[0].Name + ":" + deserialized.SEMOptions[0].value + "\n\n\n");
 
-                if(instance.Modules.Count <= 0 || instance.Modules.Count != CheatModuleAttribute.GetAllModules().Length)
+                // Set menu key
+                cfg.ClickGuiKeyBind = deserialized.ClickGuiKeyBind;
+                // Set keybinds/statuses
+                for (int i = 0; i < cfg.Modules.Count; i++)
                 {
-                    instance.Modules = instance.GetModules(gui);
+                    var mb = cfg.Modules[i];
+                    if (mb is SingleElementModuleBase)
+                    {
+                        SEMBSerializable semb = deserialized.SEMOptions.Find(x => x.Name == mb.Name);
+                        cfg.Modules[i] = semb.AsSEMB(gui);
+                    }
+                    // TODO: Implement MEMBs
                 }
 
-                return Instance = instance;
-            } catch(Exception)
+                return Instance = cfg;
+            }
+            catch (Exception e)
             {
+                File.AppendAllText(ConfigPaths.ConfigDirectory + "\\choot.txt", e.ToString());
                 return new Config(gui);
             }
         }
