@@ -103,8 +103,6 @@ namespace JNNJMods.CrabGameCheat.Util
             {
                 Config cfg = new Config(gui);
                 ConfigSerializable deserialized = JsonConvert.DeserializeObject<ConfigSerializable>(json);
-                File.AppendAllText(ConfigPaths.ConfigDirectory + "\\opts.txt", deserialized.SEMOptions[0].Name + ":" + deserialized.SEMOptions[0].value + "\n\n\n");
-
                 // Set menu key
                 cfg.ClickGuiKeyBind = deserialized.ClickGuiKeyBind;
                 // Set keybinds/statuses
@@ -123,7 +121,6 @@ namespace JNNJMods.CrabGameCheat.Util
             }
             catch (Exception e)
             {
-                File.AppendAllText(ConfigPaths.ConfigDirectory + "\\choot.txt", e.ToString());
                 return new Config(gui);
             }
         }

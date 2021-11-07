@@ -1001,7 +1001,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>cp TargetPath F:\SteamLibrary\steamapps\common\Crab Game\BepInEx\plugins\CrabGame Cheat\</PostBuildEvent>
   </PropertyGroup>
 </Project>
