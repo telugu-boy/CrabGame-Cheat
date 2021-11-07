@@ -5,8 +5,8 @@ using JNNJMods.CrabGameCheat.Util;
 
 namespace JNNJMods.CrabGameCheat.Modules
 {
-    // Disabled until solution found
-    //[CheatModule]
+    // TODO: find megaslap workaround
+    [CheatModule]
     public class MegaSlapModule : SingleElementModule<ToggleInfo>
     {
 

@@ -108,10 +108,9 @@ namespace JNNJMods.CrabGameCheat.Util
                 // Set keybinds/statuses
                 for (int i = 0; i < cfg.Modules.Count; i++)
                 {
-                    var mb = cfg.Modules[i];
-                    if (mb is SingleElementModuleBase)
+                    if (cfg.Modules[i] is SingleElementModuleBase)
                     {
-                        SEMBSerializable semb = deserialized.SEMOptions.Find(x => x.Name == mb.Name);
+                        SEMBSerializable semb = deserialized.SEMOptions.Find(x => x.Name == cfg.Modules[i].Name);
                         cfg.Modules[i] = semb.AsSEMB(gui);
                     }
                     // TODO: Implement MEMBs
