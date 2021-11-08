@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Libraries folder - contributors must copy the libraries folder from BepInEx
+Libraries/
