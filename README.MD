@@ -47,6 +47,22 @@ A Cheat for the Game [CrabGame](https://store.steampowered.com/app/1782210/Crab_
  - Give Weapons
  - ...and more to come
 
-## DISCLAIMER
+## Building
+One might need to build the cheat if they want the latest features or if they want to contribute to the project.
 
-This cheat is only for testing purposes. We do not encourage hacking when you're not allowed, and will not bear liability for your actions.
+ 1. Install [Visual Studio](https://visualstudio.microsoft.com/). Visual Studio is an integrated development environment (IDE) used to develop the cheat.
+ 2. Obtain the source code by cloning this repository with `git` or through other means.
+ 3. Create a folder named `Libraries` in the root of the source tree.
+ 4. Go to your game installation folder.
+ 5. Copy the contents of: `BepInEx\unhollowed`, `BepInEx\unity-libs`, `BepInEx\core` and `Newtonsoft.Json.dll` in the cheat's plugin folder to `Libraries`.
+ 6. In your source tree, open the solution (`Crab Game Cheat.sln`).
+ 7. Select the configuration BepInEx in the second ribbon in Visual Studio.
+ 8. Activate Ctrl+Shift+B to build the DLL.
+ 9. Copy the DLL to the cheat's plugin folder.
+
+## DISCLAIMER
+This software is for __educational__ purposes solely.
+We encourage you to browse the source code of this software to gain an understanding of the tools, system and practices employed in game modifications.
+We do not, however, encourage hacking where you are not allowed, and will not bear liability for your actions.
+
+CrabGame-Cheat is GPLv3 licensed. Please read [LICENSE](LICENSE) before thinking of [skidding](https://www.urbandictionary.com/define.php?term=script%20kiddie) (e.g. infringing copyright, selling modified versions of the software without also providing modified source code) or you might be **sued** by the copyright holders.
